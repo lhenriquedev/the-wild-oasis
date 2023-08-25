@@ -18,6 +18,7 @@ import Table from '../../ui/Table'
 import { formatCurrency, formatDistanceFromNow } from '../../utils/helpers'
 // import { useCheckout } from '../features/check-in-out/useCheckout'
 import { format, isToday } from 'date-fns'
+import { useCheckout } from '../check-in-out/useCheckout'
 
 // v1
 // const TableRow = styled.div`
@@ -75,6 +76,7 @@ function BookingRow({
   },
 }) {
   const navigate = useNavigate()
+  const { checkout, isCheckingOut } = useCheckout()
 
   const statusToTagName = {
     unconfirmed: 'blue',
@@ -123,6 +125,15 @@ function BookingRow({
               onClick={() => navigate(`/checkin/${bookingId}`)}
             >
               Check in
+            </Menus.Button>
+          )}
+          {status === 'checked-in' && (
+            <Menus.Button
+              icon={<HiArrowUpOnSquare />}
+              onClick={() => checkout(bookingId)}
+              disabled={isCheckingOut}
+            >
+              Check out
             </Menus.Button>
           )}
         </Menus.List>
