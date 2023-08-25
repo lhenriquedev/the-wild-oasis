@@ -1,19 +1,18 @@
 import styled from 'styled-components'
 import { format, isToday } from 'date-fns'
 
-import { box } from 'styles/styles'
-import { formatDistanceFromNow, formatCurrency } from 'utils/helpers'
+// import { box } from '../../styles'
+import { formatDistanceFromNow, formatCurrency } from '../../utils/helpers'
 import {
   HiOutlineChatBubbleBottomCenterText,
   HiOutlineCheckCircle,
   HiOutlineCurrencyDollar,
   HiOutlineHomeModern,
 } from 'react-icons/hi2'
-import DataItem from 'ui/DataItem'
-import { Flag } from 'ui/Flag'
+import DataItem from '../../ui/DataItem'
+import { Flag } from '../../ui/Flag'
 
 const StyledBookingDataBox = styled.section`
-  ${box} /* padding: 3.2rem 4rem; */
   overflow: hidden;
 `
 
@@ -101,6 +100,7 @@ const Footer = styled.footer`
 
 function BookingDataBox({ booking }) {
   const {
+    // eslint-disable-next-line camelcase
     created_at,
     startDate,
     endDate,
