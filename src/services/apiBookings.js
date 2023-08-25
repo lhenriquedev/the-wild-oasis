@@ -11,12 +11,13 @@ export async function getBookings({ filter, sortBy, page }) {
     )
 
   // FILTER
-  if (filter) query = query[filter.method || 'eq'](filter.field, filter.value)
-
+  if (filter) {
+    query = query[filter.method || 'eq'](filter.field, filter.value)
+  }
   // SORT
-  if (sortBy)
+  if (sortBy) {
     query = query.order(sortBy.field, { ascending: sortBy.direction === 'asc' })
-
+  }
   // PAGINATION
   if (page) {
     const from = (page - 1) * PAGE_SIZE
@@ -27,7 +28,6 @@ export async function getBookings({ filter, sortBy, page }) {
   const { data, error, count } = await query
 
   if (error) {
-    console.error(error)
     throw new Error('Bookings could not get loaded')
   }
 
