@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form'
-import Button from 'ui/Button'
-import Form from 'ui/Form'
-import FormRow from 'ui/FormRow'
-import Input from 'ui/Input'
+import Button from '../../ui/Button'
+import Form from '../../ui/Form'
+import FormRow from '../../ui/FormRow'
+import Input from '../../ui/Input'
 import { useUpdateUser } from './useUpdateUser'
 
 function UpdatePasswordForm() {
@@ -16,7 +16,7 @@ function UpdatePasswordForm() {
   }
 
   function handleReset(e) {
-    // e.preventDefault();
+    e.preventDefault()
     reset()
   }
 
