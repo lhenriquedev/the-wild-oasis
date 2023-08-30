@@ -45,16 +45,14 @@ export async function logout() {
 
 export async function updateCurrentUser({ password, fullName, avatar }) {
   // 1. Update password or fullName
-  let updateUser
-  if (password) updateUser = { password }
+  let updateData
+  if (password) updateData = { password }
   if (fullName)
-    updateUser = {
-      data: {
-        fullName,
-      },
+    updateData = {
+      data: { fullName },
     }
 
-  const { data, error } = await supabase.auth.updateUser(updateUser)
+  const { data, error } = await supabase.auth.updateUser(updateData)
 
   if (error) throw new Error(error.message)
   if (!avatar) return data
