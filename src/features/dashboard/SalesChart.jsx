@@ -1,5 +1,8 @@
-import { useDarkMode } from 'context/DarkModeContext'
-import { eachDayOfInterval, format, isSameDay, subDays } from 'date-fns'
+import { useDarkMode } from '../../contexts/DarkModeContext'
+
+import styled from 'styled-components'
+import Heading from '../../ui/Heading'
+import DashboardBox from './DashboardBox'
 import {
   Area,
   AreaChart,
@@ -9,11 +12,13 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import styled from 'styled-components'
-import Heading from 'ui/Heading'
-import DashboardBox from './DashboardBox'
+import { eachDayOfInterval, format, isSameDay, subDays } from 'date-fns'
 
 const StyledSalesChart = styled(DashboardBox)`
+  background-color: var(--color-grey-0);
+  border: 1px solid var(--color-grey-100);
+  border-radius: var(--border-radius-md);
+
   grid-column: 1 / -1;
 
   /* Hack to change grid line colors */
@@ -60,13 +65,12 @@ function SalesChart({ bookings, numDays }) {
 
   return (
     <StyledSalesChart>
-      <Heading type="h2">
+      <Heading type="h3">
         Sales from {format(allDates.at(0), 'MMM dd yyyy')} &mdash;{' '}
         {format(allDates.at(-1), 'MMM dd yyyy')}
       </Heading>
 
-      <ResponsiveContainer width="100%" height={300}>
-        {/* <AreaChart data={data} width={700} height={300}> */}
+      <ResponsiveContainer height={300} width="100%">
         <AreaChart data={data}>
           <XAxis
             dataKey="label"
@@ -81,26 +85,23 @@ function SalesChart({ bookings, numDays }) {
           <CartesianGrid strokeDasharray="4" />
           <Tooltip contentStyle={{ backgroundColor: colors.background }} />
           <Area
-            type="monotone"
             dataKey="totalSales"
-            // stroke='#4f46e5'
-            // fill='#c7d2fe'
+            type="monotone"
             stroke={colors.totalSales.stroke}
             fill={colors.totalSales.fill}
             strokeWidth={2}
-            unit="$"
             name="Total sales"
+            unit="$"
           />
+
           <Area
-            type="monotone"
             dataKey="extrasSales"
-            // stroke='#15803d'
-            // fill='#dcfce7'
+            type="monotone"
             stroke={colors.extrasSales.stroke}
             fill={colors.extrasSales.fill}
             strokeWidth={2}
-            unit="$"
             name="Extras sales"
+            unit="$"
           />
         </AreaChart>
       </ResponsiveContainer>
