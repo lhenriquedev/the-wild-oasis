@@ -1,4 +1,4 @@
-import { useDarkMode } from 'context/DarkModeContext'
+import { useDarkMode } from '../../contexts/DarkModeContext'
 import {
   Cell,
   Legend,
@@ -8,11 +8,12 @@ import {
   Tooltip,
 } from 'recharts'
 import styled from 'styled-components'
-import { box } from 'styles/styles'
-import Heading from 'ui/Heading'
+import Heading from '../../ui/Heading'
 
 const ChartBox = styled.div`
-  ${box}
+  background-color: var(--color-grey-0);
+  border: 1px solid var(--color-grey-100);
+  border-radius: var(--border-radius-md);
   padding: 2.4rem 3.2rem;
 
   grid-column: 3 / span 2;
@@ -286,6 +287,7 @@ function prepareData(startData, stays) {
 
 function DurationChart({ confirmedStays }) {
   const { isDarkMode } = useDarkMode()
+
   const startData = isDarkMode ? startDataDark : startDataLight
   const data = prepareData(startData, confirmedStays)
 
@@ -298,16 +300,13 @@ function DurationChart({ confirmedStays }) {
             data={data}
             nameKey="duration"
             dataKey="value"
+            innerRadius={80}
+            outerRadius={120}
             cx="40%"
             cy="50%"
-            innerRadius={85}
-            outerRadius={110}
-            fill="#4f46e5"
             paddingAngle={3}
-            startAngle={180}
-            endAngle={-180}
           >
-            {data.map((entry, i) => (
+            {startDataLight.map((entry) => (
               <Cell
                 key={entry.duration}
                 fill={entry.color}
@@ -317,8 +316,6 @@ function DurationChart({ confirmedStays }) {
           </Pie>
           <Tooltip />
           <Legend
-            // verticalAlign='bottom'
-            // align='center'
             verticalAlign="middle"
             align="right"
             width="30%"
